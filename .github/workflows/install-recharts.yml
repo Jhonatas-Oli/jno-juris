@@ -1,0 +1,20 @@
+name: Instalar Recharts
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  install-recharts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Instalar dependência
+        run: |
+          npm install recharts
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add package.json package-lock.json
+          git commit -m "🔧 Adiciona recharts ao projeto"
+          git push
