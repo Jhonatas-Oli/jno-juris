@@ -1,96 +1,58 @@
-import { useEffect, useState } from 'react';
-import { db } from '../firebase';
-import { collection, getDocs, query, where } from 'firebase/firestore';
-import Sidebar from '../components/Sidebar';
-import {
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from 'recharts';
+import { useEffect, useState } from "react";
+import { db } from "../firebase";
+import { collection, getDocs } from "firebase/firestore";
+import Sidebar from "../components/Sidebar";
+import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
-function Dashboard() {
-  const [totalClientes, setTotalClientes] = useState(0);
-  const [totalProcessos, setTotalProcessos] = useState(0);
-  const [statusContagem, setStatusContagem] = useState({
-    andamento: 0,
-    concluido: 0,
-    arquivado: 0,
-  });
+interface Cliente { id: string; nome: string; }
+interface Processo { id: string; titulo: string; status: string; }
+
+export function Dashboard() {
+  const [clientes, setClientes] = useState<Cliente[]>([]);
+  const [processos, setProcessos] = useState<Processo[]>([]);
 
   useEffect(() => {
-    const carregarDados = async () => {
-      const clientesSnap = await getDocs(collection(db, 'clientes'));
-      setTotalClientes(clientesSnap.size);
-
-      const processosSnap = await getDocs(collection(db, 'processos'));
-      setTotalProcessos(processosSnap.size);
-
-      const andamentoSnap = await getDocs(
-        query(
-          collection(db, 'processos'),
-          where('status', '==', 'Em andamento')
-        )
-      );
-      const concluidoSnap = await getDocs(
-        query(collection(db, 'processos'), where('status', '==', 'Concluído'))
-      );
-      const arquivadoSnap = await getDocs(
-        query(collection(db, 'processos'), where('status', '==', 'Arquivado'))
-      );
-
-      setStatusContagem({
-        andamento: andamentoSnap.size,
-        concluido: concluidoSnap.size,
-        arquivado: arquivadoSnap.size,
-      });
-    };
-    carregarDados();
+    Promise.all([
+      getDocs(collection(db, "clientes")),
+      getDocs(collection(db, "processos")),
+    ]).then(([clientesSnap, processosSnap]) => {
+      setClientes(clientesSnap.docs.map(doc => ({ id: doc.id, ...doc.data() } as Cliente)));
+      setProcessos(processosSnap.docs.map(doc => ({ id: doc.id, ...doc.data() } as Processo)));
+    });
   }, []);
 
-  const data = [
-    { name: 'Em andamento', value: statusContagem.andamento },
-    { name: 'Concluído', value: statusContagem.concluido },
-    { name: 'Arquivado', value: statusContagem.arquivado },
-  ];
+  const statusContagem = {
+    andamento: processos.filter(p => p.status === "Em andamento").length,
+    concluido: processos.filter(p => p.status === "Concluído").length,
+    arquivado: processos.filter(p => p.status === "Arquivado").length,
+  };
 
-  const COLORS = ['#8884d8', '#82ca9d', '#ffc658'];
+  const data = [
+    { name: "Em andamento", value: statusContagem.andamento },
+    { name: "Concluído", value: statusContagem.concluido },
+    { name: "Arquivado", value: statusContagem.arquivado },
+  ];
+  const COLORS = ["#4f46e5", "#22c55e", "#facc15"];
 
   return (
-    <div style={{ marginLeft: '200px', padding: '2rem' }}>
+    <div className="ml-52 p-10">
       <Sidebar />
-      <h2>Dashboard</h2>
-      <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-        <div style={cardStyle}>
-          <h3>Total de Clientes</h3>
-          <p>{totalClientes}</p>
+      <h2 className="text-2xl font-bold mb-6">Dashboard</h2>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="bg-white rounded-xl p-4 shadow-md">
+          <h3 className="text-lg font-semibold">Total de Clientes</h3>
+          <p className="text-4xl text-indigo-600">{clientes.length}</p>
         </div>
-        <div style={cardStyle}>
-          <h3>Total de Processos</h3>
-          <p>{totalProcessos}</p>
+        <div className="bg-white rounded-xl p-4 shadow-md">
+          <h3 className="text-lg font-semibold">Total de Processos</h3>
+          <p className="text-4xl text-indigo-600">{processos.length}</p>
         </div>
-        <div style={{ ...cardStyle, width: '100%' }}>
-          <h3>Status dos Processos</h3>
+        <div className="bg-white rounded-xl p-4 shadow-md col-span-1 md:col-span-3">
+          <h3 className="text-lg font-semibold mb-2">Status dos Processos</h3>
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
-              <Pie
-                dataKey="value"
-                isAnimationActive={true}
-                data={data}
-                cx="50%"
-                cy="50%"
-                outerRadius={80}
-                fill="#8884d8"
-                label
-              >
-                {data.map((entry, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={COLORS[index % COLORS.length]}
-                  />
-                ))}
+              <Pie data={data} dataKey="value" cx="50%" cy="50%" outerRadius={100} label>
+                {data.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)}
               </Pie>
               <Tooltip />
               <Legend />
@@ -101,13 +63,3 @@ function Dashboard() {
     </div>
   );
 }
-
-const cardStyle: React.CSSProperties = {
-  background: '#f7f7f7',
-  padding: '1rem',
-  borderRadius: '8px',
-  boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
-  width: '200px',
-};
-
-export default Dashboard;
