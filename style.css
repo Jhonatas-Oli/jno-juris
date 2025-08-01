@@ -1,0 +1,100 @@
+:root {
+  --azul: #1c2149;
+  --cinza: #ebe8e3;
+  --marrom: #948765;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background-color: var(--cinza);
+  color: var(--azul);
+  line-height: 1.6;
+}
+
+header {
+  background-color: var(--azul);
+  color: white;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  font-size: 1.8rem;
+  color: var(--marrom);
+}
+
+nav a {
+  margin-left: 1.5rem;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+.hero {
+  background: url('https://images.unsplash.com/photo-1528744598421-b7d45aefb65b') center/cover no-repeat;
+  color: white;
+  padding: 6rem 2rem;
+  text-align: center;
+}
+
+.hero h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.hero button {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  background-color: var(--marrom);
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+section {
+  padding: 3rem 2rem;
+}
+
+.sobre, .atuacao, .blog, .depoimentos {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.atuacao .area {
+  display: inline-block;
+  width: 30%;
+  margin: 1%;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+footer {
+  background-color: var(--azul);
+  color: white;
+  padding: 2rem;
+  text-align: center;
+}
+
+footer a {
+  color: var(--marrom);
+  text-decoration: none;
+}
+
+@media(max-width: 768px) {
+  .atuacao .area {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+}
