@@ -1,0 +1,30 @@
+name: Build and Deploy with Tailwind
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🔄 Checkout do código
+        uses: actions/checkout@v3
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: 📦 Instalar dependências
+        run: npm install
+
+      - name: ⚙️ Build com Vite + Tailwind
+        run: npm run build
+
+      # Se estiver usando Vercel CLI (opcional)
+      # - name: 🔼 Deploy para Vercel
+      #   run: npx vercel --token=${{ secrets.VERCEL_TOKEN }} --prod
