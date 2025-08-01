@@ -1,1 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JNO Juris | Advocacia e Inovação</title>
+  <style>
+    :root {
+      --azul: #1c2149;
+      --cinza: #ebe8e3;
+      --marrom: #948765;
+    }
 
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background-color: var(--cinza);
+      color: var(--azul);
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--azul);
+      color: white;
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      color: var(--marrom);
+    }
+
+    nav a {
+      margin-left: 1.5rem;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+    }
+
+    .hero {
+      background: url('https://images.unsplash.com/photo-1528744598421-b7d45aefb65b') center/cover no-repeat;
+      color: white;
+      padding: 6rem 2rem;
+      text-align: center;
+    }
+
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero button {
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      background-color: var(--marrom);
+      border: none;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    section {
+      padding: 3rem 2rem;
+    }
+
+    .sobre, .atuacao, .blog, .depoimentos {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .atuacao .area {
+      display: inline-block;
+      width: 30%;
+      margin: 1%;
+      background-color: white;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    footer {
+      background-color: var(--azul);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    footer a {
+      color: var(--marrom);
+      text-decoration: none;
+    }
+
+    @media(max-width: 768px) {
+      .atuacao .area {
+        width: 100%;
+        margin-bottom: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>JNO Juris</h1>
+    <nav>
+      <a href="#">Início</a>
+      <a href="#">Áreas de Atuação</a>
+      <a href="#">Sobre</a>
+      <a href="#">Blog</a>
+      <a href="#">Contato</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Inovação Jurídica com Segurança e Confiança</h2>
+    <button>Agende sua Consulta</button>
+  </section>
+
+  <section class="sobre">
+    <h2>Sobre o Escritório</h2>
+    <p>O JNO Juris atua com excelência em Direito Digital, Cibersegurança e Direito Civil, com foco em soluções personalizadas e atualizadas com as transformações tecnológicas do Judiciário Brasileiro.</p>
+  </section>
+
+  <section class="atuacao">
+    <h2>Áreas de Atuação</h2>
+    <div class="area">
+      <h3>Direito Digital</h3>
+    </div>
+    <div class="area">
+      <h3>Cibersegurança</h3>
+    </div>
+    <div class="area">
+      <h3>Contratos</h3>
+    </div>
+    <div class="area">
+      <h3>Consumidor</h3>
+    </div>
+    <div class="area">
+      <h3>Direito Civil</h3>
+    </div>
+  </section>
+
+  <section class="depoimentos">
+    <h2>O que dizem nossos clientes</h2>
+    <p>"Profissionais qualificados, atendimento excelente e soluções ágeis. Recomendo o JNO Juris!" – Cliente Satisfeito</p>
+  </section>
+
+  <section class="blog">
+    <h2>Conteúdo Jurídico</h2>
+    <ul>
+      <li><a href="#">Como a IA está transformando o Direito</a></li>
+      <li><a href="#">Guia prático sobre LGPD para empresas</a></li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>© 2025 JNO Juris | Todos os direitos reservados</p>
+    <p><a href="#">Política de Privacidade</a> | <a href="https://wa.me/55seunumerowhatsapp">WhatsApp</a></p>
+  </footer>
+</body>
+</html>
+criação do index.html
